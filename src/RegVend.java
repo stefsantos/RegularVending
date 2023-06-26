@@ -64,15 +64,23 @@ class VendingMachine {
         return -1;
     }
 
-    public void restockItem(String name, int quantity) {
-        int itemId = findItemIdByName(name);
-        if (itemId != -1) {
-            int currentQuantity = inventory[itemId];
-            inventory[itemId] = currentQuantity + quantity;
-        } else {
-            System.out.println("Item not found.");
+    public void restockAllItems() {
+
+        int quantity = 100;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null) {
+                int currentQuantity = inventory[i];
+                int maxQuantity = 10; // Maximum available slots
+                int quantityToAdd = Math.min(maxQuantity - currentQuantity, quantity);
+                inventory[i] += quantityToAdd;
+                quantity -= quantityToAdd;
+                if (quantity == 0) {
+                    break; // All items have been restocked
+                }
+            }
         }
     }
+
 
     public void setItemPrice(String name, int price) {
         int itemId = findItemIdByName(name);
@@ -276,11 +284,7 @@ public class RegVend {
                     vendingMachine.addNewItem(name, price, calories, quantity);
                     break;
                 case 2:
-                    System.out.print("Enter item name to restock: ");
-                    String restockName = scanner.next();
-                    System.out.print("Enter quantity to restock: ");
-                    int restockQuantity = scanner.nextInt();
-                    vendingMachine.restockItem(restockName, restockQuantity);
+                    vendingMachine.restockAllItems();
                     break;
                 case 3:
                     System.out.print("Enter item name to set price: ");
