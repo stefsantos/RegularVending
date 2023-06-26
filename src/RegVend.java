@@ -115,7 +115,7 @@ class VendingMachine {
     }
 
     public void startTransaction() {
-        System.out.println("Please select an item or enter 0 for change:");
+        System.out.println("Please select the slot of the item you wish to purchase or enter 0 to cancel and get change:");
         displayItems();
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -255,54 +255,41 @@ public class RegVend {
         VendingMachine vendingMachine = new VendingMachine();
         Scanner scanner = new Scanner(System.in);
         int choice;
-
+        System.out.println("Welcome to the Vending Machine!");
+        
         while (true) {
+            vendingMachine.displayItems();
             System.out.println("Vending Machine Menu:");
-            System.out.println("1. Add New Item");
-            System.out.println("2. Restock Item");
-            System.out.println("3. Set Item Price");
-            System.out.println("4. Start Transaction");
-            System.out.println("5. Display Items");
-            System.out.println("6. Print Transaction Summary");
-            System.out.println("7. Exit");
+            System.out.println("1. Restock Items");
+            System.out.println("2. Set Item Price");
+            System.out.println("3. Start Transaction");
+            System.out.println("4. Display Items");
+            System.out.println("5. Print Transaction Summary");
+            System.out.println("6. Exit");
             System.out.println("Enter your choice:");
 
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter item details:");
-                    scanner.nextLine(); // Consume newline character
-                    System.out.print("Name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Price: ");
-                    int price = scanner.nextInt();
-                    System.out.print("Calories: ");
-                    int calories = scanner.nextInt();
-                    System.out.print("Initial Quantity: ");
-                    int quantity = scanner.nextInt();
-                    vendingMachine.addNewItem(name, price, calories, quantity);
-                    break;
-                case 2:
                     vendingMachine.restockAllItems();
                     break;
-                case 3:
+                case 2:
                     System.out.print("Enter item name to set price: ");
                     String priceName = scanner.next();
                     System.out.print("Enter new price: ");
                     int newPrice = scanner.nextInt();
                     vendingMachine.setItemPrice(priceName, newPrice);
                     break;
-                case 4:
+                case 3:
                     vendingMachine.startTransaction();
                     break;
-                case 5:
-                    vendingMachine.displayItems();
+                case 4:
                     break;
-                case 6:
+                case 5:
                     vendingMachine.printTransactionSummary();
                     break;
-                case 7:
+                case 6:
                     System.exit(0);
                     break;
                 default:
