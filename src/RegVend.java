@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 class VendingMachine {
     private Item[] items;
     private int[] inventory;
@@ -20,6 +19,7 @@ class VendingMachine {
         denominations = new int[]{1, 5, 10, 20, 50, 100};
         changeInventory = new int[denominations.length];
         initializeChangeInventory();
+        initializeItems();
     }
 
     private void initializeChangeInventory() {
@@ -39,6 +39,19 @@ class VendingMachine {
         } else {
             System.out.println("Vending machine is full. Cannot add new item.");
         }
+    }
+
+    private void initializeItems() {
+        addNewItem("Roasted Milk Tea", 105, 150, 5);
+        addNewItem("Tiramisu Milk Tea", 105, 200, 7);
+        addNewItem("Lychee Milk Tea", 110, 180, 3);
+        addNewItem("Strawberry Milk Tea", 110, 170, 6);
+        addNewItem("Honeydew Jasmine Milk Tea", 110, 160, 8);
+        addNewItem("Oolong Milk Tea", 110, 110, 4);
+        addNewItem("Classic Hazelnut Milk Tea", 125, 190, 5);
+        addNewItem("Coffee Milk Tea", 125, 160, 7);
+        addNewItem("Choco-Berry Milk Tea", 125, 210, 6);
+        addNewItem("Honeydew Milk Tea", 125, 150, 4);
     }
 
     private int findNextAvailableItemId() {
@@ -80,12 +93,12 @@ class VendingMachine {
 
     public void displayItems() {
         System.out.println("Available items:");
-        System.out.println("------------------------------");
-        System.out.printf("%-10s %-10s %-10s %-10s\n", "Slot", "Item", "Stock", "Price");
-        System.out.println("------------------------------");
+        System.out.println("--------------------------------------------------------------");
+        System.out.printf("%-10s %-30s %-10s %-10s\n", "Slot", "Item", "Stock", "Price");
+        System.out.println("--------------------------------------------------------------");
         for (Item item : items) {
             if (item != null) {
-                System.out.printf("%-10s %-10s %-10d %-10d\n" , item.getId()+1, item.getName(), inventory[item.getId()], prices[item.getId()]);
+                System.out.printf("%-10s %-30s %-10d %-10d\n" , item.getId()+1, item.getName(), inventory[item.getId()], prices[item.getId()]);
             }
         }
 
