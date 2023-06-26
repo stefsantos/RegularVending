@@ -24,9 +24,10 @@ class VendingMachine {
 
     private void initializeChangeInventory() {
         for (int i = 0; i < denominations.length; i++) {
-            changeInventory[i] = 10;
+            changeInventory[i] = 100;
         }
     }
+
 
     public void addNewItem(String name, int price, int calories, int initialQuantity) {
         int id = findNextAvailableItemId();
@@ -94,11 +95,11 @@ class VendingMachine {
     public void displayItems() {
         System.out.println("Available items:");
         System.out.println("--------------------------------------------------------------");
-        System.out.printf("%-10s %-30s %-10s %-10s\n", "Slot", "Item", "Stock", "Price");
+        System.out.printf("%-10s %-30s %-11s %-10s\n", "Slot", "Item", "Stock", "Price");
         System.out.println("--------------------------------------------------------------");
         for (Item item : items) {
             if (item != null) {
-                System.out.printf("%-10s %-30s %-10d %-10d\n" , item.getId()+1, item.getName(), inventory[item.getId()], prices[item.getId()]);
+                System.out.printf("%-10s %-30s %2d/10       P%-1d.00\n" , item.getId()+1, item.getName(), inventory[item.getId()], prices[item.getId()]);
             }
         }
 
@@ -147,7 +148,7 @@ class VendingMachine {
             giveChange(changeAmount);
             System.out.println("Transaction successful! Enjoy your " + item.getName());
         } else {
-            System.out.println("Sorry, not enough change available.");
+            System.out.println("Sorry, not enough change available in the machine.");
         }
     }
 
