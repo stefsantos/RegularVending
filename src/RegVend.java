@@ -4,7 +4,7 @@ class VendingMachine {
     private int[] inventory;
     private int[] prices;
     private int[] calories;
-    private int currentTransactionId;
+    
     private int totalSales;
     private int[] denominations;
     private int[] changeInventory;
@@ -14,7 +14,7 @@ class VendingMachine {
         inventory = new int[10];
         prices = new int[10];
         calories = new int[10];
-        currentTransactionId = 1;
+        
         totalSales = 0;
         denominations = new int[]{1, 5, 10, 20, 50, 100};
         changeInventory = new int[denominations.length];
@@ -203,15 +203,23 @@ class VendingMachine {
 
     public void printTransactionSummary() {
         System.out.println("Transaction Summary:");
-        System.out.println("Total Sales: " + totalSales);
+        System.out.println("Total Sales: P" + totalSales + ".00");
         System.out.println("Item Quantity:");
+    
         for (Item item : items) {
             if (item != null) {
-                System.out.println(item.getName() + ": " + (item.getInitialQuantity() - inventory[item.getId()]));
+                int quantitySold = item.getInitialQuantity() - inventory[item.getId()];
+                int timesSold = item.getDecreaseCount(); // Use decrease count instead of the difference between initial quantity and current inventory
+                if (quantitySold > 0) {
+                    System.out.println(item.getName() + ": " + quantitySold + " (Sold " + timesSold + " times)");
+                }
             }
         }
         System.out.println();
     }
+    
+
+
 }
 
 class Item {
@@ -220,6 +228,8 @@ class Item {
     private int price;
     private int calories;
     private int initialQuantity;
+    private int quantity; // Current quantity
+    private int decreaseCount; // Count for stock decrease
 
     public Item(int id, String name, int price, int calories, int initialQuantity) {
         this.id = id;
@@ -227,6 +237,12 @@ class Item {
         this.price = price;
         this.calories = calories;
         this.initialQuantity = initialQuantity;
+        this.quantity = initialQuantity;
+        this.decreaseCount = 0;
+    }
+
+    public int getQuantity() {
+        return 0;
     }
 
     public int getId() {
@@ -247,6 +263,19 @@ class Item {
 
     public int getInitialQuantity() {
         return initialQuantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getDecreaseCount() {
+        return decreaseCount;
+    }
+
+    public void decreaseQuantity() {
+        quantity--;
+        decreaseCount++; // Increment the decrease count
     }
 }
 
